@@ -20,6 +20,7 @@
 
 #include "main.h"
 #include "gpio.h"
+#include "bsp_led.h"
 
 void SystemClock_Config(void);
 
@@ -38,10 +39,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
 
+  led_init();
+
   /* Infinite loop */
   while (1)
   {
-
+    led_on();
+    HAL_Delay(200);
+    led_off();
+    HAL_Delay(200);
   }
 }
 
