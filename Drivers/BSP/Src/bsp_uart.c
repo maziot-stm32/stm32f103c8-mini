@@ -9,6 +9,10 @@
 
 UART_HandleTypeDef huart1;
 
+/**
+ * @brief  初始uart模块
+ * @retval void
+ */
 void uart_init(void)
 {
     huart1.Instance = USART1;
@@ -28,6 +32,10 @@ void uart_init(void)
     }
 }
 
+/**
+ * @brief  根据uart通路配置对应的gpio
+ * @retval void
+ */
 void uart_gpio_init(UART_HandleTypeDef* huart)
 {
     GPIO_InitTypeDef GPIO_InitStruct = { 0 };
@@ -56,6 +64,10 @@ void uart_gpio_init(UART_HandleTypeDef* huart)
     }
 }
 
+/**
+ * @brief  重定向__io_putchar，重定向后可使用printf函数
+ * @retval void
+ */
 int __io_putchar(int ch)
 {
     HAL_UART_Transmit(&huart1, (uint8_t*) &ch, 1, HAL_MAX_DELAY);
