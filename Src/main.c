@@ -21,6 +21,7 @@
 #include "main.h"
 #include "gpio.h"
 #include "bsp_led.h"
+#include "bsp_uart.h"
 
 void SystemClock_Config(void);
 
@@ -40,15 +41,19 @@ int main(void)
   MX_GPIO_Init();
 
   led_init();
-
-  /* Infinite loop */
-  while (1)
-  {
-    led_on();
-    HAL_Delay(200);
-    led_off();
-    HAL_Delay(200);
-  }
+    uart_init();
+    while (1)
+    {
+        led_on();
+        HAL_Delay(500);
+        led_off();
+        HAL_Delay(500);
+        printf("FILE = %s\r\n", __FILE__);
+        printf("FUNC = %s\r\n", __FUNCTION__);
+        printf("LINE = %d\r\n", __LINE__);
+        printf("DATE = %s\r\n", __DATE__);
+        printf("TIME = %s\r\n", __TIME__);
+    }
 }
 
 /**
@@ -105,7 +110,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
