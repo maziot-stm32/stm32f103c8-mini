@@ -249,34 +249,46 @@ void oled_draw_rectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2,
  * @param mode 显示模式(写 0 还是写 1 )
  * @return null
  */
-void oled_draw_char(uint8_t x, uint8_t y, uint8_t chr, uint8_t size,
+void oled_draw_char(uint8_t x, uint8_t y, uint8_t ch, uint8_t height,
         uint8_t mode)
 {
-    uint8_t temp = 0, t, t1;
-    uint8_t y0 = y;
-    chr = chr - ' ';
-    for (t = 0; t < size; t++)
+    uint8_t temp = 0;
+    uint8_t i;
+    uint8_t j;
+    uint8_t width = height / 2;
+    uint8_t length = ((height + 7) / 8) * width;
+    uint8_t y_start = y;
+    uint8_t local_mode = mode;
+
+    if (32 != height)
     {
-        if (size == 12)
+        ch = ch - ' ';
+    }
+
+    for (i = 0; i < length; i++)
+    {
+        if (12 == height)
         {
-            temp = oled_asc2_1206[chr][t];
+            temp = oled_asc2_1206[ch][i];
         }
-        else if (size == 16)
+        else if (16 == height)
         {
-            temp = oled_asc2_1608[chr][t];
+            temp = oled_asc2_1608[ch][i];
+        }
+        else if (32 == height)
+        {
+            temp = font_ocr_32x16[ch][i];
         }
 
-        for (t1 = 0; t1 < 8; t1++)
+        for (j = 0; j < 8; j++)
         {
-            if (temp & 0x80)
-                oled_draw_point(x, y, mode);
-            else
-                oled_draw_point(x, y, !mode);
+            local_mode = (temp & 0x80) ? mode : !mode;
+            oled_draw_point(x, y, local_mode);
             temp = temp << 1;
             y++;
-            if ((y - y0) == size)
+            if ((y - y_start) == height)
             {
-                y = y0;
+                y = y_start;
                 x++;
                 break;
             }

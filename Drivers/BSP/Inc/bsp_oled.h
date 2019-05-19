@@ -1,5 +1,5 @@
-#ifndef __BSP_OLED_H
-#define __BSP_OLED_H
+#ifndef BSP_INC_BSP_OLED_H_
+#define BSP_INC_BSP_OLED_H_
 
 #include "main.h"
 
@@ -37,4 +37,4 @@ void oled_draw_number(uint8_t x, uint8_t y, uint32_t num, uint8_t len,
         uint8_t size);
 void oled_draw_string(uint8_t x, uint8_t y, char *p);
 
-#endif /* __BSP_OLED_H */
+#endif /* BSP_INC_BSP_OLED_H_ */

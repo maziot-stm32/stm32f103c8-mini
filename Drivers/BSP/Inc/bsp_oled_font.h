@@ -1,5 +1,11 @@
-#ifndef __BSP_OLED_FONT_H
-#define __BSP_OLED_FONT_H
+#ifndef BSP_INC_BSP_OLED_FONT_H_
+#define BSP_INC_BSP_OLED_FONT_H_
+
+/*使用Pctolcd2002取字模软件*/
+/*字体: 宋体*/
+/*点阵格式: 阴码*/
+/*取模方式: 逐列式*/
+/*取模走向: 顺向*/
 
 const unsigned char oled_asc2_1206[95][12] =
 {
@@ -199,4 +205,4 @@ const unsigned char oled_asc2_1608[95][16] =
         {0x00, 0x00, 0x60, 0x00, 0x80, 0x00, 0x80, 0x00, 0x40, 0x00, 0x40, 0x00, 0x20, 0x00, 0x20, 0x00}, /*"~", 94*/
 };
 
-#endif
+#endif /* BSP_INC_BSP_OLED_FONT_H_ */

@@ -28,6 +28,8 @@ void SystemClock_Config(void);
 
 char *str = "Hello World!";
 
+uint8_t clock[8] = { 1, 2, 10, 3, 4, 10, 5, 6 };
+
 /**
  * @brief  The application entry point.
  * @retval int
@@ -35,6 +37,8 @@ char *str = "Hello World!";
 int main(void)
 {
     uint32_t count = 0;
+    int i = 0;
+    int x = 0;
     /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     HAL_Init();
 
@@ -53,10 +57,28 @@ int main(void)
 
     while (1)
     {
+        for (i = 0; i < 8; i++)
+        {
+            x = i * 16;
+            oled_draw_char(x, 16, clock[i], 32, 1);
+        }
+        oled_refresh_gram();
+
         led_on();
-        HAL_Delay(500);
+        HAL_Delay(250);
         led_off();
-        HAL_Delay(500);
+        HAL_Delay(250);
+        if (10 == clock[2])
+        {
+            clock[2] = 11;
+            clock[5] = 11;
+        }
+        else if (11 == clock[2])
+        {
+            clock[2] = 10;
+            clock[5] = 10;
+        }
+
         printf("[%04lu] DATE = %s TIME = %s\r\n", count, __DATE__, __TIME__);
         count++;
     }
