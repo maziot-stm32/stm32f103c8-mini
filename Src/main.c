@@ -22,8 +22,11 @@
 #include "gpio.h"
 #include "bsp_led.h"
 #include "bsp_uart.h"
+#include "bsp_oled.h"
 
 void SystemClock_Config(void);
+
+char *str = "Hello World!";
 
 /**
  * @brief  The application entry point.
@@ -31,6 +34,7 @@ void SystemClock_Config(void);
  */
 int main(void)
 {
+    uint32_t count = 0;
     /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     HAL_Init();
 
@@ -42,17 +46,19 @@ int main(void)
 
     led_init();
     uart_init();
+    oled_init();
+    oled_display_on();
+    oled_draw_string(0, 0, str);
+    oled_refresh_gram();
+
     while (1)
     {
         led_on();
         HAL_Delay(500);
         led_off();
         HAL_Delay(500);
-        printf("FILE = %s\r\n", __FILE__);
-        printf("FUNC = %s\r\n", __FUNCTION__);
-        printf("LINE = %d\r\n", __LINE__);
-        printf("DATE = %s\r\n", __DATE__);
-        printf("TIME = %s\r\n", __TIME__);
+        printf("[%04lu] DATE = %s TIME = %s\r\n", count, __DATE__, __TIME__);
+        count++;
     }
 }
 
