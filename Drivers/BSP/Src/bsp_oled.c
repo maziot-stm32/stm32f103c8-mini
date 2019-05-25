@@ -2,6 +2,7 @@
 #include "bsp_uart.h"
 #include "stdlib.h"
 #include "bsp_oled_font.h"
+#include "bsp_oled_ocr_font.h"
 
 /**
  * @brief 显存缓冲区
